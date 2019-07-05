@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const app = express();
 const port = 8000;
 app.use(bodyParser.urlencoded({extended: true}));
-mongoose.connect("mongodb://localhost:27017/BibleDB", {useNewUrlParser: true});
+mongoose.connect("mongodb+srv://admin-david:superFAITH@cluster0-gkvf1.mongodb.net/BibleDB", {useNewUrlParser: true});
 const kjvSchema= new mongoose.Schema({
     chapter: Number,
     verse: Number,
@@ -50,6 +50,6 @@ app.route("/:book/:chapter/:firstverse/:lastverse")
     });
 });
 
-app.listen(port, function(req, res){
-    console.log("Connected At port "+ port);
+app.listen(process.env.PORT||port, function(req, res){
+    console.log("Connected at port "+ port);
 });
