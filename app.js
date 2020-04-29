@@ -2,10 +2,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
+require('dotenv').config()
+
 const app = express();
 const port = 8000;
 app.use(bodyParser.urlencoded({extended: true}));
-mongoose.connect("mongodb+srv://admin-david:superFAITH@cluster0-gkvf1.mongodb.net/BibleDB", {useNewUrlParser: true});
+mongoose.connect(process.env.DB_HOST, {useNewUrlParser: true, useUnifiedTopology: true});
 const kjvSchema= new mongoose.Schema({
     chapter: Number,
     verse: Number,
@@ -33,21 +35,22 @@ app.route("/:book/:chapter/:firstverse/:lastverse")
         function(err, data){
             if(data){
                 dataArray.push(data);
+                // console.log(dataArray);
                 dataArray.forEach(function(element){
                     // res.json(element);
                     for(i=req.params.firstverse-1;i<req.params.lastverse;i++){
                         verseArray.push(element[i]);
                     }
                     if(!verseArray.length)
-                    res.send("The Bible Verse(s) was not found");
+                    res.json({message:"The Bible Verse(s) was not found"});
                     else
                     res.json(verseArray);
                 });
             }
 
         else
-        res.send("The Bible Verse was not found");
-    });
+        res.json({message: "The Bible Verse was not found"});
+    }).sort({verse: 1});
 });
 
 app.listen(process.env.PORT||port, function(req, res){
