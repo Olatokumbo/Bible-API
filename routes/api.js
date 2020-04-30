@@ -16,7 +16,16 @@ router.get("/:book_id", function(req, res){
             }
     });
 });
-
+router.get("/:book_id/:chapter", function(req, res){
+    Kjv.find({book_id: req.params.book_id, chapter: req.params.chapter}, function(err, data){
+        if(data){
+            res.json(data);
+        }
+        else{
+            res.json({message: "The Bible Verse(s) was not Found"})
+        }
+    }).sort({verse: 1});
+});
 router.get("/:book/:chapter/:verse",function (req, res) {
         Kjv.findOne({ book_id: req.params.book, chapter: req.params.chapter, verse: req.params.verse },
             function (err, data) {
