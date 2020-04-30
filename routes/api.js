@@ -3,8 +3,9 @@ const Kjv = require("../model/verse");
 const router = require("express").Router();
 const Book = require("../model/book");
 
-router.get("/:book_name", function(req, res){
-    Book.find({book_name: req.params.book_name}, 
+
+router.get("/:book_id", function(req, res){
+    Book.find({book_id: req.params.book_id}, 
         function(err, data){
             if(data){
                 res.json(data);
@@ -17,7 +18,7 @@ router.get("/:book_name", function(req, res){
 });
 
 router.get("/:book/:chapter/:verse",function (req, res) {
-        Kjv.findOne({ book_name: req.params.book, chapter: req.params.chapter, verse: req.params.verse },
+        Kjv.findOne({ book_id: req.params.book, chapter: req.params.chapter, verse: req.params.verse },
             function (err, data) {
                 if (data) {
                     res.json(data);
@@ -30,7 +31,7 @@ router.route("/:book/:chapter/:firstverse/:lastverse")
     .get(function (req, res) {
         const dataArray = [];
         const verseArray = [];
-        Kjv.find({ book_name: req.params.book, chapter: req.params.chapter },
+        Kjv.find({ book_id: req.params.book, chapter: req.params.chapter },
             function (err, data) {
                 if (data) {
                     dataArray.push(data);

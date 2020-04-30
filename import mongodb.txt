@@ -1,1 +1,1 @@
-mongoimport --host cluster0-shard-00-01-gkvf1.mongodb.net:27017 --ssl -u admin-david -p superFAITH --authenticationDatabase admin --db BibleDB --collection book --file "C:\Users\David\Desktop\books.json" --jsonArray
+mongoimport --host cluster0-shard-00-01-gkvf1.mongodb.net:27017 --ssl -u admin-david -p superFAITH --authenticationDatabase admin --db BibleDB --collection books --file "C:\Users\David\Desktop\books.json" --jsonArray
