@@ -6,7 +6,7 @@ const summary = require("./routes/summary");
 const app = express();
 const port = 8000;
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/books", summary);
+app.use("/", summary);
 app.route("/:book/:chapter/:verse")
     .get(function (req, res) {
         Kjv.findOne({ book_name: req.params.book, chapter: req.params.chapter, verse: req.params.verse },
